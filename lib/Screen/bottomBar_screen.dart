@@ -24,8 +24,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   final List<Map<String, dynamic>> _page = [
     {'page': const HomeScreen(), 'title': 'Home Screen'},
+    {'page': CategoryScreen(), 'title': 'Category Screen'},
     {'page': const CartScreen(), 'title': 'Cart Screen'},
-    {'page': const CategoryScreen(), 'title': 'Category Screen'},
     {'page': const SettingScreen(), 'title': 'Setting Screen'},
   ];
   @override
@@ -33,14 +33,14 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     final themeState = Provider.of<DarkThemeProvider>(context);
     bool isDark = themeState.getDarkTheme;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Center(
-          child: Text(
-            _page[_selectedIndex]['title'],
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   title: Center(
+      //     child: Text(
+      //       _page[_selectedIndex]['title'],
+      //     ),
+      //   ),
+      // ),
       body: _page[_selectedIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
