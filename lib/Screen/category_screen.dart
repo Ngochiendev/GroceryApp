@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:groceryapp/ultils/text_ultils.dart';
 import 'package:groceryapp/widget/category_widget.dart';
-import 'package:groceryapp/widget/text_widget.dart';
 
 class CategoryScreen extends StatelessWidget {
   CategoryScreen({super.key});
@@ -50,7 +50,7 @@ class CategoryScreen extends StatelessWidget {
           elevation: 0,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           centerTitle: true,
-          title: TextWidget(
+          title: TextUltils(
             text: 'Categories',
             color: Colors.red,
             textSize: 24,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groceryapp/provider/dark_theme_provider.dart';
-import 'package:groceryapp/widget/text_widget.dart';
+import 'package:groceryapp/ultils/text_ultils.dart';
 import 'package:provider/provider.dart';
 
 class CategoryWidget extends StatelessWidget {
@@ -46,7 +46,7 @@ class CategoryWidget extends StatelessWidget {
             ),
           ),
           // Category name
-          TextWidget(
+          TextUltils(
             text: catText,
             color: color,
             textSize: 20,
