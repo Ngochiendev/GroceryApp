@@ -1,7 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:groceryapp/Screen/orders/orders_screen.dart';
+import 'package:groceryapp/Screen/viewed_recently/viewed_recently.dart';
+import 'package:groceryapp/Screen/wishlist/wishlist_screen.dart';
 import 'package:groceryapp/provider/dark_theme_provider.dart';
+import 'package:groceryapp/services/global_method.dart';
 import 'package:groceryapp/ultils/text_ultils.dart';
 import 'package:provider/provider.dart';
 
@@ -83,17 +87,27 @@ class _SettingScreenState extends State<SettingScreen> {
                 _listTile(
                   title: 'Orders',
                   icon: IconlyLight.bag,
-                  onPressed: () {},
+                  onPressed: () {
+                    GlobalMethods.navigatetor(
+                        context: context, routeName: OrdersScreen.routeName);
+                  },
                 ),
                 _listTile(
                   title: 'Wishlist',
                   icon: IconlyLight.heart,
-                  onPressed: () {},
+                  onPressed: () {
+                    GlobalMethods.navigatetor(
+                        context: context, routeName: WishlistScreen.routeName);
+                  },
                 ),
                 _listTile(
                   title: 'Viewed',
                   icon: IconlyLight.show,
-                  onPressed: () {},
+                  onPressed: () {
+                    GlobalMethods.navigatetor(
+                        context: context,
+                        routeName: ViewedRecentlyScreen.routeName);
+                  },
                 ),
                 _listTile(
                   title: 'Forget Password',
@@ -116,8 +130,15 @@ class _SettingScreenState extends State<SettingScreen> {
                 _listTile(
                   title: 'Logout',
                   icon: IconlyLight.logout,
-                  onPressed: () async {
-                    await _showLogOut();
+                  onPressed: () {
+                    GlobalMethods.WarningDialog(
+                      context: context,
+                      title: 'SignOut',
+                      subtitle: 'Do you want SignOut?',
+                      function: () {
+                        print('signout');
+                      },
+                    );
                   },
                 ),
               ],
@@ -125,41 +146,6 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Future<void> _showLogOut() async {
-    await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Row(
-            children: [
-              Image.asset(
-                "./assets/images/warning-sign.png",
-                height: 20,
-                width: 20,
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(width: 10),
-              const Text("Log Out"),
-            ],
-          ),
-          content: const Text("Do you want logout?"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
     );
   }
 

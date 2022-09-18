@@ -1,6 +1,8 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:groceryapp/inner_screens/product_detail.dart';
+import 'package:groceryapp/services/global_method.dart';
 import 'package:groceryapp/ultils/text_ultils.dart';
 import 'package:groceryapp/ultils/ultils.dart';
 import 'package:groceryapp/widget/heart_button.dart';
@@ -21,7 +23,11 @@ class OnSaleWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () {},
+          onTap: () {
+            GlobalMethods.navigatetor(
+                context: context, routeName: ProductDetails.routeName);
+            print("product");
+          },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,13 +1,15 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:groceryapp/inner_screens/product_detail.dart';
+import 'package:groceryapp/services/global_method.dart';
 import 'package:groceryapp/ultils/text_ultils.dart';
 import 'package:groceryapp/ultils/ultils.dart';
 import 'package:groceryapp/widget/heart_button.dart';
 import 'package:groceryapp/widget/price_widget.dart';
 
 class ItemsWidget extends StatefulWidget {
-  const ItemsWidget({super.key});
+  const ItemsWidget({Key? key}) : super(key: key);
 
   @override
   State<ItemsWidget> createState() => _ItemsWidgetState();
@@ -29,97 +31,126 @@ class _ItemsWidgetState extends State<ItemsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final size = Ultils(context).size;
-    final color = Ultils(context).color;
-
-    return Material(
-      borderRadius: BorderRadius.circular(18),
-      color: Theme.of(context).cardColor,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(18),
-        onTap: () {},
-        child: Column(
-          children: [
+    final Color color = Ultils(context).color;
+    Size size = Ultils(context).size;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(12),
+        color: Theme.of(context).cardColor,
+        child: InkWell(
+          onTap: () {
+            GlobalMethods.navigatetor(
+                context: context, routeName: ProductDetails.routeName);
+          },
+          borderRadius: BorderRadius.circular(12),
+          child: Column(children: [
             FancyShimmerImage(
               imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-              width: size.width * 0.21,
-              height: size.width * 0.2,
+              height: size.width * 0.21,
+              width: size.width * 0.2,
               boxFit: BoxFit.fill,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextUltils(
-                    text: 'Title', color: color, textSize: 18, isTitle: true),
-                const HeartButton(),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextUltils(
+                    text: 'Title',
+                    color: color,
+                    textSize: 20,
+                    isTitle: true,
+                  ),
+                  const HeartButton(),
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                PriceWidget(
-                  price: 99,
-                  salePrice: 2.0,
-                  isOnSale: false,
-                  textPrice: _quantityTextController.text,
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Row(
-                    children: [
-                      TextUltils(
-                        text: 'KG',
-                        color: color,
-                        textSize: 16,
-                      ),
-                    ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    flex: 4,
+                    child: PriceWidget(
+                      salePrice: 2.99,
+                      price: 5.9,
+                      textPrice: _quantityTextController.text,
+                      isOnSale: true,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: TextFormField(
-                    onChanged: (value) {
-                      setState(() {
-                        // _quantityTextController.text = value;
-                      });
-                    },
-                    controller: _quantityTextController,
-                    key: const ValueKey('10'),
-                    style: TextStyle(color: color, fontSize: 18),
-                    keyboardType: TextInputType.number,
-                    maxLines: 1,
-                    enabled: true,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp('[0-9.]')),
-                    ],
+                  const SizedBox(
+                    width: 8,
                   ),
-                ),
-              ],
+                  Flexible(
+                    child: Row(
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          child: FittedBox(
+                            child: TextUltils(
+                              text: 'KG',
+                              color: color,
+                              textSize: 18,
+                              isTitle: true,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Flexible(
+                            flex: 2,
+                            // TextField can be used also instead of the textFormField
+                            child: TextFormField(
+                              controller: _quantityTextController,
+                              key: const ValueKey('10'),
+                              style: TextStyle(color: color, fontSize: 18),
+                              keyboardType: TextInputType.number,
+                              maxLines: 1,
+                              enabled: true,
+                              onChanged: (valueee) {
+                                setState(() {});
+                              },
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                  RegExp('[0-9.]'),
+                                ),
+                              ],
+                            ))
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
             const Spacer(),
             SizedBox(
               width: double.infinity,
               child: TextButton(
-                onPressed: () {
-                  print('add to cart');
-                },
-                style: TextButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    ),
-                  ),
-                ),
-                child: Text(
-                  "Add to cart",
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 18,
-                  ),
+                onPressed: () {},
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Theme.of(context).cardColor),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(12.0),
+                          bottomRight: Radius.circular(12.0),
+                        ),
+                      ),
+                    )),
+                child: TextUltils(
+                  text: 'Add to cart',
+                  maxLines: 1,
+                  color: color,
+                  textSize: 20,
                 ),
               ),
-            ),
-          ],
+            )
+          ]),
         ),
       ),
     );
